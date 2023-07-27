@@ -8,26 +8,34 @@ class MenuOptions extends StatefulWidget {
 }
 
 class MenuOptionsState extends State<MenuOptions> {
-  String selectedOption = 'Breakfast'; // Default selected menu option
+  String selectedOption = 'Breakfast';
+  final List<String> menuOptions = [
+    'Breakfast',
+    'Lunch',
+    'Dinner',
+    'Snacks',
+    'Beverages'
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: const Icon(
-            Icons.local_dining_outlined,
-            size: 36,
-            color: Colors.black,
-          ),
-        ),
-        buildOptionButton('Breakfast'),
-        buildOptionButton('Lunch'),
-        buildOptionButton('Dinner'),
-        buildOptionButton('Snacks'),
-        buildOptionButton('Beverages'),
-      ],
+    return ListView.builder(
+      itemCount: menuOptions.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: const Icon(
+              Icons.local_dining_outlined,
+              size: 36,
+              color: Colors.black,
+            ),
+          );
+        } else {
+          final option = menuOptions[index - 1];
+          return buildOptionButton(option);
+        }
+      },
     );
   }
 

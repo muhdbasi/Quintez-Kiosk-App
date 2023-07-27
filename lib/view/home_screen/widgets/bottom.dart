@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quintez_kiosk_app/view/constants/color.dart';
 
 class CustomButton extends StatelessWidget {
   final double height;

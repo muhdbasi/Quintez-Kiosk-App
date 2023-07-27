@@ -114,53 +114,53 @@ final List<Product> productList = [
     price: 19.99,
     offerPrice: 14.99,
   ),
-  Product(
-    name: 'Product 2',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 29.99,
-    offerPrice: 24.99,
-  ),
-  Product(
-    name: 'Product 3',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 19.99,
-    offerPrice: 14.99,
-  ),
-  Product(
-    name: 'Product 4',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 29.99,
-    offerPrice: 24.99,
-  ),
-  Product(
-    name: 'Product 5',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 19.99,
-    offerPrice: 14.99,
-  ),
-  Product(
-    name: 'Product 6',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 29.99,
-    offerPrice: 24.99,
-  ),
-  Product(
-    name: 'Product 7',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 19.99,
-    offerPrice: 14.99,
-  ),
-  Product(
-    name: 'Product 8',
-    imageUrl:
-        'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-    price: 29.99,
-    offerPrice: 2224.9,
-  ),
+  // Product(
+  //   name: 'Product 2',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 29.99,
+  //   offerPrice: 24.99,
+  // ),
+  // Product(
+  //   name: 'Product 3',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 19.99,
+  //   offerPrice: 14.99,
+  // ),
+  // Product(
+  //   name: 'Product 4',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 29.99,
+  //   offerPrice: 24.99,
+  // ),
+  // Product(
+  //   name: 'Product 5',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 19.99,
+  //   offerPrice: 14.99,
+  // ),
+  // Product(
+  //   name: 'Product 6',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 29.99,
+  //   offerPrice: 24.99,
+  // ),
+  // Product(
+  //   name: 'Product 7',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 19.99,
+  //   offerPrice: 14.99,
+  // ),
+  // Product(
+  //   name: 'Product 8',
+  //   imageUrl:
+  //       'https://images.pexels.com/photos/406152/pexels-photo-406152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  //   price: 29.99,
+  //   offerPrice: 2224.9,
+  // ),
 ];
