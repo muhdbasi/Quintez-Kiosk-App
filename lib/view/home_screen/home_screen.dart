@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quintez_kiosk_app/view/checkout_screen/checkout_screen.dart';
 import 'package:quintez_kiosk_app/view/home_screen/widgets/bottom.dart';
 
 import 'widgets/menu_options.dart';
@@ -73,9 +74,19 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
+        height: size.height * 0.07,
         color: Colors.green,
         child: CustomButton(
-            height: 50, width: 250, onPressed: () {}, text: "text"),
+            height: size.height * 0.05,
+            width: size.width * 0.24,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CheckOutScreen(),
+                ),
+              );
+            },
+            text: "Go to cart"),
       ),
     );
   }

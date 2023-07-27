@@ -43,7 +43,13 @@ class ProductGridviewState extends State<ProductGridview> {
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Image.network(widget.product.imageUrl),
+        SizedBox(
+            width: size.width * 0.35,
+            height: size.height * 0.15,
+            child: Image.network(
+              widget.product.imageUrl,
+              fit: BoxFit.cover,
+            )),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -54,27 +60,12 @@ class ProductGridviewState extends State<ProductGridview> {
                 color: Colors.black,
               ),
             ),
-            Theme(
-              data: ThemeData(
-                checkboxTheme: CheckboxThemeData(
-                  fillColor: MaterialStateProperty.resolveWith<Color?>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.disabled)) {
-                        return null;
-                      }
-                      if (states.contains(MaterialState.selected)) {
-                        return Colors.green;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              child: Checkbox(
-                value: isSelected,
-                onChanged: (value) => toggleSelection(),
-              ),
-            ),
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.shopping_cart_outlined,
+                  size: size.height * 0.025,
+                ))
           ],
         ),
         Row(
@@ -96,32 +87,32 @@ class ProductGridviewState extends State<ProductGridview> {
             ),
           ],
         ),
-        Row(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.remove),
-              iconSize: size.height * 0.02,
-              onPressed: decrementProductCount,
-            ),
-            Text(
-              productCount.toString(),
-              style: TextStyle(fontSize: size.height * 0.02),
-            ),
-            IconButton(
-              icon: const Icon(Icons.add),
-              iconSize: size.height * 0.02,
-              onPressed: incrementProductCount,
-            ),
-            Text(
-              'Total: \$${getTotalPrice().toStringAsFixed(2)}',
-              style: TextStyle(
-                fontSize: size.height * 0.02,
-              ),
-            ),
-          ],
-        ),
+
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   children: [
+        //     IconButton(
+        //       icon: const Icon(Icons.remove),
+        //       iconSize: size.height * 0.02,
+        //       onPressed: decrementProductCount,
+        //     ),
+        //     Text(
+        //       productCount.toString(),
+        //       style: TextStyle(fontSize: size.height * 0.02),
+        //     ),
+        //     IconButton(
+        //       icon: const Icon(Icons.add),
+        //       iconSize: size.height * 0.02,
+        //       onPressed: incrementProductCount,
+        //     ),
+        //     Text(
+        //       'Total: \$${getTotalPrice().toStringAsFixed(2)}',
+        //       style: TextStyle(
+        //         fontSize: size.height * 0.02,
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }

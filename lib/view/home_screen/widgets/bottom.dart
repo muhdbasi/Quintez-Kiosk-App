@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quintez_kiosk_app/color.dart';
+import 'package:quintez_kiosk_app/view/constants/color.dart';
 
 class CustomButton extends StatelessWidget {
   final double height;
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
             onTap: onPressed,
             child: Container(
               decoration: BoxDecoration(
-                color: lidgtPinkColor,
+                color: Colors.black,
                 borderRadius: BorderRadius.circular(8.0),
                 boxShadow: [
                   BoxShadow(
@@ -39,23 +39,33 @@ class CustomButton extends StatelessWidget {
               ),
               height: height,
               width: width,
-              child: Center(
-                child: Text(
-                  text,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  const Icon(
+                    Icons.shopping_cart,
+                    color: Colors.green,
+                  )
+                ],
               ),
             ),
           ),
         ),
         const Text(
-          "00.011",
+          "00.00",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 30,
             color: Colors.black,
             fontWeight: FontWeight.bold,
           ),

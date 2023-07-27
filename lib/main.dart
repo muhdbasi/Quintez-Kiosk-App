@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quintez_kiosk_app/view/home_screen/home_screen.dart';
-
-import 'view/payment_screen/payment_screen.dart';
+import 'package:quintez_kiosk_app/view/landing_page/landing_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const PaymentScreen(),
+      home: const LandingScreen(),
     );
   }
 }

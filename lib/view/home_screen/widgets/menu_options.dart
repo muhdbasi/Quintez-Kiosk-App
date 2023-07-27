@@ -4,10 +4,10 @@ class MenuOptions extends StatefulWidget {
   const MenuOptions({Key? key}) : super(key: key);
 
   @override
-  _MenuOptionsState createState() => _MenuOptionsState();
+  MenuOptionsState createState() => MenuOptionsState();
 }
 
-class _MenuOptionsState extends State<MenuOptions> {
+class MenuOptionsState extends State<MenuOptions> {
   String selectedOption = 'Breakfast'; // Default selected menu option
 
   @override
