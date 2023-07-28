@@ -1,28 +1,90 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class CustomButton extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:quintez_kiosk_app/controller/menu_provider.dart';
+import 'package:timer_builder/timer_builder.dart';
+import 'package:quintez_kiosk_app/view/checkout_screen/checkout_screen.dart';
+
+class CustomButton extends StatefulWidget {
   final double height;
   final double width;
-  final VoidCallback onPressed;
   final String text;
 
   const CustomButton({
     Key? key,
     required this.height,
     required this.width,
-    required this.onPressed,
     required this.text,
+    required Null Function() onPressed,
   }) : super(key: key);
+
+  @override
+  CustomButtonState createState() => CustomButtonState();
+}
+
+class CustomButtonState extends State<CustomButton> {
+  late Timer _timer;
+  int _secondsLeft = 1 * 04;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _cancelTimer();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsLeft > 0) {
+        setState(() {
+          _secondsLeft--;
+        });
+      } else {
+        _cancelTimer(); // Stop the timer when it reaches 0
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  void _cancelTimer() {
+    _timer.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        TimerBuilder.periodic(
+          const Duration(seconds: 1), // Update every second
+          builder: (context) {
+            return Text(
+              '${(_secondsLeft ~/ 60).toString().padLeft(2, '0')}:${(_secondsLeft % 60).toString().padLeft(2, '0')}',
+              style: const TextStyle(
+                fontSize: 30,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          },
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
-            onTap: onPressed,
+            onTap: () {
+              _cancelTimer(); // Stop the timer when the button is tapped
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const CheckOutScreen(),
+                ),
+              );
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.black,
@@ -36,13 +98,13 @@ class CustomButton extends StatelessWidget {
                   ),
                 ],
               ),
-              height: height,
-              width: width,
+              height: widget.height,
+              width: widget.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    text,
+                    widget.text,
                     style: const TextStyle(
                       fontSize: 26,
                       color: Colors.white,
@@ -52,21 +114,21 @@ class CustomButton extends StatelessWidget {
                   const SizedBox(
                     width: 15,
                   ),
-                  const Icon(
-                    Icons.shopping_cart,
-                    color: Colors.green,
+                  Consumer<MenuProvider>(
+                    builder: (context, value, child) => Badge(
+                      label: Text(
+                        value.cartItems.length.toString(),
+                      ),
+                      child: const Icon(
+                        Icons.shopping_cart,
+                        color: Colors.green,
+                        size: 35,
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
-          ),
-        ),
-        const Text(
-          "00.00",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ],

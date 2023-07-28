@@ -1,21 +1,62 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:quintez_kiosk_app/view/pay_at_counter_screen/pay_at_counter_screen.dart';
 import 'package:quintez_kiosk_app/view/payment_screen/payment_screen.dart';
 
-class BottomNavBar extends StatelessWidget {
+class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
-    super.key,
+    Key? key,
     required this.size,
-  });
+  }) : super(key: key);
 
   final Size size;
+
+  @override
+  _BottomNavBarState createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  late Timer _timer;
+  int _secondsLeft = 1 * 60; // 1 minute (60 seconds)
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _cancelTimer();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsLeft > 0) {
+        setState(() {
+          _secondsLeft--;
+        });
+      } else {
+        _cancelTimer(); // Stop the timer when it reaches 0
+        // Add your code here when the timer reaches 0, e.g., show an alert, navigate to a new screen, etc.
+        // For now, let's print a message.
+        print("Timer reached 0!");
+      }
+    });
+  }
+
+  void _cancelTimer() {
+    _timer.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: size.height * 0.2,
-      width: size.width,
+      height: widget.size.height * 0.2,
+      width: widget.size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -25,13 +66,13 @@ class BottomNavBar extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                 color: Colors.white,
-                width: size.width * 0.15,
-                height: size.width * 0.07,
+                width: widget.size.width * 0.15,
+                height: widget.size.width * 0.07,
                 child: Text(
-                  '00:00',
+                  '${(_secondsLeft ~/ 60).toString().padLeft(2, '0')}:${(_secondsLeft % 60).toString().padLeft(2, '0')}',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: size.width * 0.035,
+                    fontSize: widget.size.width * 0.035,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -43,18 +84,18 @@ class BottomNavBar extends StatelessWidget {
                     Text(
                       'Total',
                       style: TextStyle(
-                        fontSize: size.width * 0.035,
+                        fontSize: widget.size.width * 0.035,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
                       ' - ',
-                      style: TextStyle(fontSize: size.width * 0.035),
+                      style: TextStyle(fontSize: widget.size.width * 0.035),
                     ),
                     Text(
                       "\$500",
                       style: TextStyle(
-                        fontSize: size.width * 0.035,
+                        fontSize: widget.size.width * 0.035,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -68,12 +109,12 @@ class BottomNavBar extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  showDialogue(context, size);
+                  showDialogue(context, widget.size);
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: size.height * 0.06,
-                  width: size.width * 0.3,
+                  height: widget.size.height * 0.06,
+                  width: widget.size.width * 0.3,
                   decoration: BoxDecoration(
                     color: const Color(0xFF2B3663),
                     borderRadius: BorderRadius.circular(10),
@@ -91,10 +132,10 @@ class BottomNavBar extends StatelessWidget {
                     ],
                   ),
                   child: Text(
-                    'Loyality points',
+                    'Loyalty points',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: size.width * 0.035,
+                      fontSize: widget.size.width * 0.035,
                       color: Colors.white,
                     ),
                   ),
@@ -102,6 +143,7 @@ class BottomNavBar extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  _cancelTimer();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const PayAtCounterScreen(),
@@ -110,8 +152,8 @@ class BottomNavBar extends StatelessWidget {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: size.height * 0.06,
-                  width: size.width * 0.3,
+                  height: widget.size.height * 0.06,
+                  width: widget.size.width * 0.3,
                   decoration: BoxDecoration(
                     color: Colors.orange.shade700,
                     borderRadius: BorderRadius.circular(10),
@@ -132,7 +174,7 @@ class BottomNavBar extends StatelessWidget {
                     'Pay at counter',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: size.width * 0.035,
+                      fontSize: widget.size.width * 0.035,
                       color: Colors.white,
                     ),
                   ),
@@ -140,6 +182,7 @@ class BottomNavBar extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  _cancelTimer();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const PaymentScreen(),
@@ -148,8 +191,8 @@ class BottomNavBar extends StatelessWidget {
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: size.height * 0.06,
-                  width: size.width * 0.3,
+                  height: widget.size.height * 0.06,
+                  width: widget.size.width * 0.3,
                   decoration: BoxDecoration(
                     color: const Color(0xFF609F08),
                     borderRadius: BorderRadius.circular(10),
@@ -170,7 +213,7 @@ class BottomNavBar extends StatelessWidget {
                     'Pay now',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: size.width * 0.035,
+                      fontSize: widget.size.width * 0.035,
                       color: Colors.white,
                     ),
                   ),
@@ -186,12 +229,13 @@ class BottomNavBar extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  showRedeemDialogue(context, size);
+                  _cancelTimer();
+                  showRedeemDialogue(context, widget.size);
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  height: size.height * 0.06,
-                  width: size.width * 0.3,
+                  height: widget.size.height * 0.06,
+                  width: widget.size.width * 0.3,
                   decoration: BoxDecoration(
                     color: Colors.red.shade400,
                     borderRadius: BorderRadius.circular(10),
@@ -212,7 +256,7 @@ class BottomNavBar extends StatelessWidget {
                     'Redeem points',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: size.width * 0.035,
+                      fontSize: widget.size.width * 0.035,
                       color: Colors.white,
                     ),
                   ),
@@ -220,8 +264,8 @@ class BottomNavBar extends StatelessWidget {
               ),
               Container(
                 alignment: Alignment.center,
-                height: size.height * 0.06,
-                width: size.width * 0.3,
+                height: widget.size.height * 0.06,
+                width: widget.size.width * 0.3,
                 decoration: BoxDecoration(
                   color: Colors.purple.shade400,
                   borderRadius: BorderRadius.circular(10),
@@ -242,7 +286,7 @@ class BottomNavBar extends StatelessWidget {
                   'Apply coupon',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: size.width * 0.035,
+                    fontSize: widget.size.width * 0.035,
                     color: Colors.white,
                   ),
                 ),
@@ -274,7 +318,7 @@ class BottomNavBar extends StatelessWidget {
               children: [
                 const SizedBox(height: 16.0),
                 Text(
-                  'Enter your mobile number for loyality',
+                  'Enter your mobile number for loyalty',
                   style: TextStyle(fontSize: size.width * 0.032),
                   textAlign: TextAlign.center,
                 ),
