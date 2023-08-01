@@ -2,6 +2,8 @@
 //
 //     final menusModel = menusModelFromJson(jsonString);
 
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 
 MenusModel menusModelFromJson(String str) =>

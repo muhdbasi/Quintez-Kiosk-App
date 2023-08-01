@@ -266,7 +266,7 @@ class BottomNavBar extends StatelessWidget {
   }
 
   Future<void> showDialogue(BuildContext context, Size size) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     final supaBase = Supabase.instance.client;
     TextEditingController phoneNumberController = TextEditingController();
     return showDialog(
@@ -296,7 +296,7 @@ class BottomNavBar extends StatelessWidget {
                     horizontal: 20,
                   ),
                   child: Form(
-                    key: _formKey,
+                    key: formKey,
                     child: SizedBox(
                       width: size.width * 0.55,
                       child: TextFormField(
@@ -376,7 +376,7 @@ class BottomNavBar extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
+                          if (formKey.currentState!.validate()) {
                             await supaBase.auth.signInWithOtp(
                               phone: "+91${phoneNumberController.text}",
                               shouldCreateUser: true,
