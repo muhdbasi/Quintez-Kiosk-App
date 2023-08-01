@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quintez_kiosk_app/controller/menu_provider.dart';
+import 'package:quintez_kiosk_app/model/add_order_model.dart';
 import 'package:quintez_kiosk_app/view/pay_at_counter_screen/pay_at_counter_screen.dart';
 import 'package:quintez_kiosk_app/view/payment_screen/payment_screen.dart';
+import 'package:quintez_kiosk_app/view/checking_screen/checking_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -110,10 +114,10 @@ class BottomNavBar extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => PayAtCounterScreen(
-                            totalAmount: value.calculateSubtotal()),
+                        builder: (context) => CheckingScreen(),
                       ),
                     );
+                    //showPhoneDialogue(context, size, value);
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -378,7 +382,7 @@ class BottomNavBar extends StatelessWidget {
                         onPressed: () async {
                           if (formKey.currentState!.validate()) {
                             await supaBase.auth.signInWithOtp(
-                              phone: "+91${phoneNumberController.text}",
+                              phone: "+91${phoneNumberController.text.trim()}",
                               shouldCreateUser: true,
                             );
                           }
@@ -436,6 +440,91 @@ class BottomNavBar extends StatelessWidget {
                         },
                         child: Text(
                           'Close',
+                          style: TextStyle(
+                            fontSize: size.width * 0.035,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //     Navigator.of(context).pop();
+                      //   },
+                      //   child: Text(
+                      //     'Redeem',
+                      //     style: TextStyle(
+                      //       fontSize: size.width * 0.035,
+                      //       fontWeight: FontWeight.bold,
+                      //       color: Colors.green.shade900,
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> showPhoneDialogue(
+      BuildContext context, Size size, MenuProvider value) {
+    TextEditingController phoneController = TextEditingController();
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  controller: phoneController,
+                ),
+                const SizedBox(height: 16.0),
+                SizedBox(
+                  width: size.width * 0.45,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        onPressed: () async {
+                          try {
+                            late AddOrderModel addOrderModel;
+
+                            addOrderModel = await value
+                                .addToOrdersItem(
+                                    value.cartItems,
+                                    value.calculateSubtotal(),
+                                    0,
+                                    int.parse(phoneController.text.trim()))
+                                .whenComplete(() {
+                              if (addOrderModel.success) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => PayAtCounterScreen(
+                                        totalAmount: value.calculateSubtotal()),
+                                  ),
+                                );
+                              }
+                            });
+                          } catch (e) {
+                            log("show dialoge Error $e");
+                          }
+                        },
+                        child: Text(
+                          'submit',
                           style: TextStyle(
                             fontSize: size.width * 0.035,
                             fontWeight: FontWeight.bold,

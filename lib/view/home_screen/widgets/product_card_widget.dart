@@ -135,6 +135,7 @@ class ProductCard extends StatelessWidget {
                     }
                   : () {
                       final item = CartItem(
+                          imageId: product.product.images[0].id,
                           description: product.product.description,
                           imageUrl: product.product.images[0].imageUrl,
                           productId: product.product.productId,

@@ -5,6 +5,7 @@ class CartItem {
   int quantity;
   String imageUrl;
   String description;
+  int imageId;
 
   CartItem({
     required this.productId,
@@ -13,5 +14,6 @@ class CartItem {
     required this.quantity,
     required this.imageUrl,
     required this.description,
+    required this.imageId,
   });
 }

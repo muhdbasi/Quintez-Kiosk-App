@@ -9,7 +9,7 @@ String customerModelToJson(List<CustomerModel> data) =>
 
 class CustomerModel {
   int id;
-  String userId;
+  String? userId;
   String? firstName;
   String? lastName;
   String? email;
@@ -35,20 +35,24 @@ class CustomerModel {
   });
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
-        id: json["id"],
-        userId: json["user_id"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        email: json["email"],
-        phone: json["phone"],
+        id: json["id"] ?? 0,
+        userId: json["user_id"] ?? '',
+        firstName: json["first_name"] ?? '',
+        lastName: json["last_name"] ?? '',
+        email: json["email"] ?? '',
+        phone: json["phone"] ?? 0,
         address:
             json["address"] == null ? null : Address.fromJson(json["address"]),
         dateOfBirth: json["date_of_birth"] == null
             ? null
             : DateTime.parse(json["date_of_birth"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        isActive: json["is_active"],
+        createdAt: json["created_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["updated_at"]),
+        isActive: json["is_active"] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -80,10 +84,10 @@ class Address {
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-        city: json["city"],
-        state: json["state"],
-        street: json["street"],
-        zipcode: json["zipcode"],
+        city: json["city"] ?? '',
+        state: json["state"] ?? '',
+        street: json["street"] ?? '',
+        zipcode: json["zipcode"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
